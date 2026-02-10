@@ -20,8 +20,8 @@ class Example(QWidget):
         self.setWindowTitle('Отображение карты')
 
         ## Изображение
-        print(get_cor('Фрязино+Ленина+17'))
-        self.pixmap = QPixmap(getImage(get_cor('Фрязино Ленина 17'), 16, 'dark'))
+        self.map_file = getImage(get_cor('Фрязино Ленина 17'), 16, 'dark')
+        self.pixmap = QPixmap(self.map_file)
         self.image = QLabel(self)
         self.image.move(0, 0)
         self.image.resize(600, 450)
