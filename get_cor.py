@@ -12,7 +12,7 @@ def get_cor(geocode):
         toponym = json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]
         toponym_address = toponym["metaDataProperty"]["GeocoderMetaData"]["text"]
         toponym_coodrinates = toponym["Point"]["pos"]
-        return tuple(map(float, toponym_coodrinates.split()))
+        return list(map(float, toponym_coodrinates.split()))
     else:
         print("Ошибка выполнения запроса:")
         print(geocoder_request)
