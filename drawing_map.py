@@ -2,10 +2,10 @@ import requests
 import sys
 
 
-def getImage(ll, z, theme='light'):
+def getImage(ll, z, theme='light', ):
     server_address = 'https://static-maps.yandex.ru/v1?'
     api_key = 'f3a0fe3a-b07e-4840-a1da-06f18b2ddf13'
-    params = f'll={ll[0]},{ll[1]}&z={z[0]}&theme={theme}'
+    params = f'll={ll[0]},{ll[1]}&z={z}&theme={theme}'
 
     map_request = f"{server_address}{params}&apikey={api_key}"
     response = requests.get(map_request)
