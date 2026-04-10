@@ -4,7 +4,7 @@ from drawing_map import getImage
 import requests
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QCheckBox
+from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QCheckBox, QLineEdit
 from get_cor import get_cor
 
 SCREEN_SIZE = [900, 500]
@@ -18,13 +18,18 @@ class Example(QWidget):
         self.initUI()
 
     def initUI(self):
+        self.mark = []
         self.setGeometry(100, 100, *SCREEN_SIZE)
         self.setWindowTitle('Отображение карты')
         self.checkBox = QCheckBox(self)
         self.checkBox.setText("Light theme")
-        self.checkBox.setGeometry(700, 100, 150, 50)
+        self.checkBox.setGeometry(650, 100, 150, 50)
         self.checkBox.setChecked(True)
         self.checkBox.checkStateChanged.connect(self.uploud_map)
+        self.edit = QLineEdit(self)
+        self.edit.setText('Finding...')
+        self.edit.setGeometry(650, 150, 200, 50)
+        self.edit.editingFinished.connect(self.add_mark)
 
         ## Изображение
         self.map_file = getImage(self.cor, self.z, 'light')
@@ -33,6 +38,12 @@ class Example(QWidget):
         self.image.move(0, 0)
         self.image.resize(600, 450)
         self.image.setPixmap(self.pixmap)
+
+    def add_mark(self):
+        if self.edit.text() != 'Finding...' and self.edit.text() != '':
+            self.mark.append(get_cor(self.edit.text()))
+            self.cor = get_cor(self.edit.text())
+            self.uploud_map()
 
     def keyPressEvent(self, event):
         is_changed = False
@@ -64,9 +75,9 @@ class Example(QWidget):
     def uploud_map(self):
         os.remove(self.map_file)
         if self.checkBox.isChecked():
-            self.map_file = getImage(self.cor, self.z, 'light')
+            self.map_file = getImage(self.cor, self.z, 'light', self.mark)
         else:
-            self.map_file = getImage(self.cor, self.z, 'dark')
+            self.map_file = getImage(self.cor, self.z, 'dark', self.mark)
         self.pixmap = QPixmap(self.map_file)
         self.image.clear()
         self.image.setPixmap(self.pixmap)
