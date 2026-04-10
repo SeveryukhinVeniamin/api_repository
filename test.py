@@ -4,7 +4,7 @@ from drawing_map import getImage
 import requests
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QApplication, QWidget, QLabel
+from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QCheckBox
 from get_cor import get_cor
 
 SCREEN_SIZE = [700, 500]
@@ -52,7 +52,7 @@ class Example(QWidget):
             self.cor[0] -= 0.001
             is_changed = True
         if is_changed:
-            self.cor[0] = min(max(self.cor[1], -180), 180)
+            self.cor[0] = min(max(self.cor[0], -180), 180)
             self.cor[1] = min(max(self.cor[1], -85), 85)
             self.uploud_map()
 
