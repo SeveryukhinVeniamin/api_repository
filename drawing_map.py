@@ -7,11 +7,7 @@ def getImage(ll, z, theme='light', pt=[]):
     api_key = 'f3a0fe3a-b07e-4840-a1da-06f18b2ddf13'
     params = f'll={ll[0]},{ll[1]}&z={z}&theme={theme}'
     if pt != []:
-        params += '&pt='
-        for p in pt:
-            params += f'{p[0]},{p[1]}'
-            if p != pt[-1]:
-                params += '~'
+        params += '&pt='+'~'.join(list(map(lambda x: f'{x[0]},{x[1]}', pt)))
 
     print(params)
 

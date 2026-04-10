@@ -4,7 +4,7 @@ from drawing_map import getImage
 import requests
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QCheckBox, QLineEdit
+from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QCheckBox, QLineEdit, QPushButton
 from get_cor import get_cor
 
 SCREEN_SIZE = [900, 500]
@@ -30,6 +30,10 @@ class Example(QWidget):
         self.edit.setText('Finding...')
         self.edit.setGeometry(650, 150, 200, 50)
         self.edit.editingFinished.connect(self.add_mark)
+        self.button = QPushButton(self)
+        self.button.setText('Delete')
+        self.button.setGeometry(650, 200, 200, 50)
+        self.button.clicked.connect(self.delete)
 
         ## Изображение
         self.map_file = getImage(self.cor, self.z, 'light')
@@ -38,7 +42,9 @@ class Example(QWidget):
         self.image.move(0, 0)
         self.image.resize(600, 450)
         self.image.setPixmap(self.pixmap)
-
+    def delete(self):
+        self.mark = []
+        self.uploud_map()
     def add_mark(self):
         if self.edit.text() != 'Finding...' and self.edit.text() != '':
             self.mark.append(get_cor(self.edit.text()))
