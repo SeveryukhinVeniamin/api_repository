@@ -9,8 +9,6 @@ def getImage(ll, z, theme='light', pt=[]):
     if pt != []:
         params += '&pt='+'~'.join(list(map(lambda x: f'{x[0]},{x[1]}', pt)))
 
-    print(params)
-
     map_request = f"{server_address}{params}&apikey={api_key}"
     response = requests.get(map_request)
 
