@@ -22,7 +22,7 @@ class Example(QWidget):
         self.setWindowTitle('Отображение карты')
         self.checkBox = QCheckBox(self)
         self.checkBox.setText("Light theme")
-        self.checkBox.setGeometry(700, 100, 50, 50)
+        self.checkBox.setGeometry(700, 100, 150, 50)
         self.checkBox.setChecked(True)
         self.checkBox.checkStateChanged.connect(self.uploud_map)
 
