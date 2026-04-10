@@ -30,28 +30,31 @@ class Example(QWidget):
         self.image.setPixmap(self.pixmap)
 
     def keyPressEvent(self, event):
+        is_changed = False
         if event.key() == Qt.Key.Key_PageUp:
             self.z += 1
             self.z = min(max(0, self.z), 21)
-            self.uploud_map()
+            is_changed = True
         if event.key() == Qt.Key.Key_PageDown:
             self.z -= 1
             self.z = min(max(0, self.z), 21)
-            self.uploud_map()
+            is_changed = True
         if event.key() == Qt.Key.Key_Up:
             self.cor[1] += 0.001
-            self.uploud_map()
+            is_changed = True
         if event.key() == Qt.Key.Key_Down:
             self.cor[1] -= 0.001
-            self.uploud_map()
+            is_changed = True
         if event.key() == Qt.Key.Key_Right:
             self.cor[0] += 0.001
-            self.uploud_map()
+            is_changed = True
         if event.key() == Qt.Key.Key_Left:
             self.cor[0] -= 0.001
+            is_changed = True
+        if is_changed:
+            self.cor[0] = min(max(self.cor[1], -180), 180)
+            self.cor[1] = min(max(self.cor[1], -85), 85)
             self.uploud_map()
-        self.cor[0] = min(max(self.cor[1], -180), 180)
-        self.cor[1] = min(max(self.cor[1], -85), 85)
 
     def uploud_map(self):
         os.remove(self.map_file)
