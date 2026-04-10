@@ -14,7 +14,7 @@ class Example(QWidget):
     def __init__(self):
         super().__init__()
         self.z = 16
-        self.cor = get_cor('Фрязино Ленина 17')
+        self.cor = [179, 85]#get_cor('Фрязино Ленина 17')
         self.initUI()
 
     def initUI(self):
@@ -50,6 +50,8 @@ class Example(QWidget):
         if event.key() == Qt.Key.Key_Left:
             self.cor[0] -= 0.001
             self.uploud_map()
+        self.cor[0] = min(max(self.cor[1], -180), 180)
+        self.cor[1] = min(max(self.cor[1], -85), 85)
 
     def uploud_map(self):
         os.remove(self.map_file)
