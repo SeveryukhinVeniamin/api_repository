@@ -7,7 +7,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QCheckBox
 from get_cor import get_cor
 
-SCREEN_SIZE = [700, 500]
+SCREEN_SIZE = [900, 500]
 
 
 class Example(QWidget):
@@ -20,9 +20,14 @@ class Example(QWidget):
     def initUI(self):
         self.setGeometry(100, 100, *SCREEN_SIZE)
         self.setWindowTitle('Отображение карты')
+        self.checkBox = QCheckBox(self)
+        self.checkBox.setText("Light theme")
+        self.checkBox.setGeometry(700, 100, 50, 50)
+        self.checkBox.setChecked(True)
+        self.checkBox.checkStateChanged.connect(self.uploud_map)
 
         ## Изображение
-        self.map_file = getImage(self.cor, self.z, 'dark')
+        self.map_file = getImage(self.cor, self.z, 'light')
         self.pixmap = QPixmap(self.map_file)
         self.image = QLabel(self)
         self.image.move(0, 0)
@@ -58,7 +63,10 @@ class Example(QWidget):
 
     def uploud_map(self):
         os.remove(self.map_file)
-        self.map_file = getImage(self.cor, self.z, 'dark')
+        if self.checkBox.isChecked():
+            self.map_file = getImage(self.cor, self.z, 'light')
+        else:
+            self.map_file = getImage(self.cor, self.z, 'dark')
         self.pixmap = QPixmap(self.map_file)
         self.image.clear()
         self.image.setPixmap(self.pixmap)
