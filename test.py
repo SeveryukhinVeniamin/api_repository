@@ -50,6 +50,8 @@ class Example(QWidget):
         if event.key() == Qt.Key.Key_Left:
             self.cor[0] -= 0.001
             self.uploud_map()
+        self.cor[0] = min(max(self.cor[1], -180), 180)
+        self.cor[1] = min(max(self.cor[1], -85), 85)
 
     def uploud_map(self):
         os.remove(self.map_file)
